@@ -11,6 +11,8 @@ void SeqListTest1()
 	SeqListPushBack(&s, 5);
 
 	SeqListInsert(&s, 10, 3);
+	SeqListInsert(&s, 20, 7);
+
 
 	//int ret=SeqListFind(&s, 20);
 	//if (ret != -1)
@@ -25,17 +27,17 @@ void SeqListTest1()
 	//SeqListPopBack(&s);
 
 	//SeqListPushFront(&s, 1);
-	//SeqListPushFront(&s, 2);
+	SeqListPushFront(&s, 2);
 
-	//SeqListPopFront(&s);
+	SeqListPopFront(&s);
 
 	//for (int i = 1; i <= 1000; i++)
 	//{
 	//	SeqListPushBack(&s, i);
 	//}
-	SeqListSort(s);
+	//SeqListSort(s);
 
-	//SeqListPrint(&s);
+	SeqListPrint(&s);
 }
 
 int main()

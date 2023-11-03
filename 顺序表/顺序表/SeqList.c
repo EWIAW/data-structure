@@ -38,43 +38,47 @@ void SeqListCheckCapacity(SL* ps)//检查容量，如果满，则扩容
 
 void SeqListPushBack(SL* ps, Data x)//尾部插入
 {
-	SeqListCheckCapacity(ps);
-	ps->arr[ps->size] = x;
-	ps->size++;
+	//SeqListCheckCapacity(ps);
+	//ps->arr[ps->size] = x;
+	//ps->size++;
+	SeqListInsert(ps, x, ps->size + 1);
 }
 
 void SeqListPopBack(SL* ps)//尾部删除
 {
-	assert(ps);
-	assert(ps->size);
-	ps->size--;
+	//assert(ps);
+	//assert(ps->size);
+	//ps->size--;
+	SeqListErase(ps, ps->size);
 }
 
 void SeqListPushFront(SL* ps, Data x)//头部插入
 {
-	assert(ps);
-	SeqListCheckCapacity(ps);
-	int end = ps->size - 1;
-	while (end >= 0)
-	{
-		ps->arr[end + 1] = ps->arr[end];
-		end--;
-	}
-	ps->arr[0] = x;
-	ps->size++;
+	//assert(ps);
+	//SeqListCheckCapacity(ps);
+	//int end = ps->size - 1;
+	//while (end >= 0)
+	//{
+	//	ps->arr[end + 1] = ps->arr[end];
+	//	end--;
+	//}
+	//ps->arr[0] = x;
+	//ps->size++;
+	SeqListInsert(ps, x, 1);
 }
 
 void SeqListPopFront(SL* ps)//头部删除
 {
-	assert(ps);
-	assert(ps->size);
-	int head = 0;
-	while (head < (ps->size -1) )
-	{
-		ps->arr[head] = ps->arr[head + 1];
-		head++;
-	}
-	ps->size--;
+	//assert(ps);
+	//assert(ps->size);
+	//int head = 0;
+	//while (head < (ps->size -1) )
+	//{
+	//	ps->arr[head] = ps->arr[head + 1];
+	//	head++;
+	//}
+	//ps->size--;
+	SeqListErase(ps, 1);
 }
 
 void SeqListInsert(SL* ps, Data x, int pos)//在pos位置插入
