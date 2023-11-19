@@ -1,0 +1,3 @@
+﻿  List.c
+D:\github\data-structure\双链表\双链表\List.c(16,29): warning C4028: 形参 1 与声明不同
+  双链表.vcxproj -> D:\github\data-structure\双链表\x64\Debug\双链表.exe
