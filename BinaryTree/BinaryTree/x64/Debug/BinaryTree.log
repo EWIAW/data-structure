@@ -1,0 +1,3 @@
+﻿  test.c
+D:\github\data-structure\BinaryTree\BinaryTree\BinaryTree.h(1,1): warning C4828: 文件包含在偏移 0x34a 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+  BinaryTree.vcxproj -> D:\github\data-structure\BinaryTree\x64\Debug\BinaryTree.exe
