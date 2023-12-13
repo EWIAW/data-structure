@@ -54,8 +54,8 @@ void BubbleSortTest()//≤‚ ‘  √∞≈›≈≈–Ú
 
 void QuickSortTest()
 {
-	int arr[] = { 10,9,5,7,6,5,4,3,2,1 };
-	//int arr[] = { 5,78,1,41,6,5,6 };
+	//int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	int arr[] = { 5,78,1,41,6,5,6 };
 	Print(arr, sizeof(arr) / sizeof(int));
 	QuickSort(arr, 0, sizeof(arr) / sizeof(int) - 1);
 	Print(arr, sizeof(arr) / sizeof(int));
@@ -82,27 +82,27 @@ void TestOP()//≤‚ ‘ À˘”–≈≈–Ú ÀŸ∂»
 	}
 
 	int begin1 = clock();
-	InsertSort(a1, N);
+	InsertSort(a1, N);//÷±Ω”≤Â»Î≈≈–Ú
 	int end1 = clock();
 
 	int begin2 = clock();
-	ShellSort(a2, N);
+	ShellSort(a2, N);//œ£∂˚≈≈–Ú
 	int end2 = clock();
 
 	int begin3 = clock();
-	SelectSort(a3, N);
+	SelectSort(a3, N);//÷±Ω”—°‘Ò≈≈–Ú
 	int end3 = clock();
 
 	int begin4 = clock();
-	HeapSort(a4, N);
+	HeapSort(a4, N);//∂—≈≈–Ú
 	int end4 = clock();
 
 	int begin5 = clock();
-	BubbleSort(a5, N);
+	BubbleSort(a5, N);//√∞≈›≈≈–Ú
 	int end5 = clock();
 
 	int begin6 = clock();
-	QuickSort(a6, 0, N - 1);
+	QuickSort(a5, 0, N - 1);//øÏÀŸ≈≈–Ú
 	int end6 = clock();
 
 	printf("InsertSort:%d\n", end1 - begin1);

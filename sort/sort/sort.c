@@ -161,34 +161,92 @@ void BubbleSort(int* arr, int sz)//冒泡排序 时间复杂度为O（n²）
 	}
 }
 
-int PartSort(int* arr, int begin, int end)//一趟快速排序
+int GetMidIndex(int* arr, int begin, int end)//用于快速排序  的  三数取中（即在begin、end和 (begin+end)/2之间取一个处在中间的值，这样保证在一趟排序中，key值不会是最大，也不会是最小
 {
 	assert(arr);
 
-	int key = begin;
+	int mid = (begin + end) / 2;
+	if (arr[begin] > arr[mid])
+	{
+		if (arr[begin] > arr[end])
+		{
+			return arr[mid] > arr[end] ? mid : end;
+		}
+	}
+	else if (arr[mid] > arr[end])
+	{
+		if (arr[mid] > arr[begin])
+		{
+			return arr[end] > arr[begin] ? end : begin;
+		}
+	}
+	else
+	{
+		return arr[begin] > arr[mid] ? begin : mid;
+	}
+}
 
+int PartSort1(int* arr, int begin, int end)//一趟快速排序  左右指针法  时间复杂度为O（n）
+{
+	assert(arr);
+
+	int midIndex = GetMidIndex(arr, begin, end);//三数取中
+	Swap(&arr[begin], &arr[midIndex]);//将处在 中间的 数换到begin的位置
+	int key = begin;//需要比较的值
+
+	//一趟排序后，使得 arr[key] 处在正确的位置，它的左边都比它小，它的右边都比它大
 	while (begin < end)
 	{
-		while (begin < end && arr[end] > arr[key])
+		while (begin < end && arr[end] >= arr[key])//end从右边开始找小
 		{
 			end--;
 		}
 
-		while (begin < end && arr[begin] < arr[key])
+		while (begin < end && arr[begin] <= arr[key])//begin从左边开始找大
 		{
 			begin++;
 		}
 
-		Swap(&arr[begin], &arr[end]); 
+		Swap(&arr[begin], &arr[end]); //交换end小值 和 begin大值
 		//begin++;
 		//end--;
 	}
 
 	Swap(&arr[key], &arr[end]);
-	return end;
+	return end;//返回key所在的位置
 }
 
-void QuickSort(int* arr, int left, int right)//快速排序
+int PartSort2(int* arr, int begin, int end)//一趟快速排序  挖坑法  时间复杂度为O（n）
+{
+	assert(arr);
+
+	int key = arr[end];
+	while (begin < end)
+	{
+		while (begin < end && arr[begin] <= key)
+		{
+			begin++;
+		}
+
+		//Swap(&arr[begin], &arr[end]);
+		arr[end] = arr[begin];
+
+		while (begin < end && arr[end] >= key)
+		{
+			end--;
+		}
+
+		//Swap(&arr[end], &arr[begin]);
+		arr[begin] = arr[end];
+
+	}
+
+	arr[begin] = key;
+	return begin;
+}
+
+
+void QuickSort(int* arr, int left, int right)//快速排序  时间复杂度为O（n*logN）
 {
 	assert(arr);
 
@@ -197,9 +255,10 @@ void QuickSort(int* arr, int left, int right)//快速排序
 		return;
 	}
 
-	int ret = PartSort(arr, left, right);
+	//int ret = PartSort1(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
+	int ret = PartSort2(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
 
-	QuickSort(arr, left, ret - 1);
-	QuickSort(arr, ret + 1, right);
+	QuickSort(arr, left, ret - 1);//后对 key 值前面的数组排序
+	QuickSort(arr, ret + 1, right);//后对 key 值后面的数组排序
 
 }

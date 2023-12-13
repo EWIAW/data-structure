@@ -1,2 +1,5 @@
-﻿  test.c
+﻿  sort.c
+  test.c
+  正在生成代码...
+D:\github\data-structure\sort\sort\sort.c(187): warning C4715: “GetMidIndex”: 不是所有的控件路径都返回值
   sort.vcxproj -> D:\github\data-structure\sort\x64\Debug\sort.exe
