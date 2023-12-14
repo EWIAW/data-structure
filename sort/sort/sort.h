@@ -21,5 +21,6 @@ void BubbleSort(int* arr, int sz);//冒泡排序  时间复杂度为O（n²）
 
 int PartSort1(int* arr, int begin, int end);//一趟快速排序  左右指针法  时间复杂度为O（n）
 int PartSort2(int* arr, int begin, int end);//一趟快速排序  挖坑法  时间复杂度为O（n）
+int PartSort3(int* arr, int begin, int end);//一趟快速排序  前后指针法  时间复杂度为O（n）
 
 void QuickSort(int* arr, int left, int right);//快速排序  时间复杂度为 O（n*logN）

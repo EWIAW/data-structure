@@ -63,7 +63,7 @@ void QuickSortTest()
 
 void TestOP()//测试 所有排序 速度
 {
-	int N = 10000;
+	int N = 10000000;
 	int* a1 = (int*)malloc(sizeof(int) * N);
 	int* a2 = (int*)malloc(sizeof(int) * N);
 	int* a3 = (int*)malloc(sizeof(int) * N);
@@ -81,35 +81,35 @@ void TestOP()//测试 所有排序 速度
 		a6[i] = a1[i];
 	}
 
-	int begin1 = clock();
-	InsertSort(a1, N);//直接插入排序
-	int end1 = clock();
+	//int begin1 = clock();
+	//InsertSort(a1, N);//直接插入排序
+	//int end1 = clock();
 
 	int begin2 = clock();
 	ShellSort(a2, N);//希尔排序
 	int end2 = clock();
 
-	int begin3 = clock();
-	SelectSort(a3, N);//直接选择排序
-	int end3 = clock();
+	//int begin3 = clock();
+	//SelectSort(a3, N);//直接选择排序
+	//int end3 = clock();
 
 	int begin4 = clock();
 	HeapSort(a4, N);//堆排序
 	int end4 = clock();
 
-	int begin5 = clock();
-	BubbleSort(a5, N);//冒泡排序
-	int end5 = clock();
+	//int begin5 = clock();
+	//BubbleSort(a5, N);//冒泡排序
+	//int end5 = clock();
 
 	int begin6 = clock();
-	QuickSort(a5, 0, N - 1);//快速排序
+	QuickSort(a6, 0, N - 1);//快速排序
 	int end6 = clock();
 
-	printf("InsertSort:%d\n", end1 - begin1);
+	//printf("InsertSort:%d\n", end1 - begin1);
 	printf("ShellSort:%d\n", end2 - begin2);
-	printf("SelectSort:%d\n", end3 - begin3);
+	//printf("SelectSort:%d\n", end3 - begin3);
 	printf("HeapSort:%d\n", end4 - begin4);
-	printf("BubbleSort:%d\n", end5 - begin5);
+	//printf("BubbleSort:%d\n", end5 - begin5);
 	printf("QuickSort:%d\n", end6 - begin6);
 
 
@@ -130,10 +130,10 @@ int main()
 	//SelectSortTest();
 	//HeapSortTest();
 	//BubbleSortTest();
-	QuickSortTest();
+	//QuickSortTest();
 
 
-	//TestOP();
+	TestOP();
 
 	return 0;
 }

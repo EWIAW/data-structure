@@ -184,9 +184,10 @@ int GetMidIndex(int* arr, int begin, int end)//用于快速排序  的  三数�
 	{
 		return arr[begin] > arr[mid] ? begin : mid;
 	}
+	//返回的是 中间的数 的下标
 }
 
-int PartSort1(int* arr, int begin, int end)//一趟快速排序  左右指针法  时间复杂度为O（n）
+int PartSort1(int* arr, int begin, int end)//一趟快速排序  //左右指针法//  时间复杂度为O（n）
 {
 	assert(arr);
 
@@ -216,9 +217,12 @@ int PartSort1(int* arr, int begin, int end)//一趟快速排序  左右指针法
 	return end;//返回key所在的位置
 }
 
-int PartSort2(int* arr, int begin, int end)//一趟快速排序  挖坑法  时间复杂度为O（n）
+int PartSort2(int* arr, int begin, int end)//一趟快速排序  //挖坑法//  时间复杂度为O（n）
 {
 	assert(arr);
+
+	int midIndex = GetMidIndex(arr, begin, end);//三数取中
+	Swap(&arr[midIndex], &arr[end]);//将处在 中间的 数换到end的位置
 
 	int key = arr[end];
 	while (begin < end)
@@ -245,6 +249,51 @@ int PartSort2(int* arr, int begin, int end)//一趟快速排序  挖坑法  时�
 	return begin;
 }
 
+int PartSort3(int* arr, int begin, int end)//一趟快速排序  前后指针法  时间复杂度为O（n）
+{
+	//无优化写法
+	//assert(arr);
+
+	//int cur = begin;
+	//int prev = begin - 1;
+	//int key = arr[end];
+
+	//while (cur < end)
+	//{
+	//	if (arr[cur] <= key)
+	//	{
+	//		prev++;
+	//		Swap(&arr[cur], &arr[prev]);
+	//	}
+	//	cur++;
+	//}
+	//prev++;
+	//Swap(&arr[prev], &arr[end]);
+	//return prev;
+
+
+	//优化写法
+	assert(arr);
+
+	int midIndex = GetMidIndex(arr, begin, end);//三数取中
+	Swap(&arr[midIndex], &arr[end]);//让三数取中的数  放到末尾
+
+	int key = arr[end];
+	int cur = begin;
+	int prev = begin - 1;
+	while (cur < end)
+	{
+		if (arr[cur] <= key && ++prev != cur)
+		{
+			Swap(&arr[cur], &arr[prev]);
+		}
+		cur++;
+	}
+
+	Swap(&arr[end], &arr[++prev]);
+
+	return prev;
+}
 
 void QuickSort(int* arr, int left, int right)//快速排序  时间复杂度为O（n*logN）
 {
@@ -255,10 +304,18 @@ void QuickSort(int* arr, int left, int right)//快速排序  时间复杂度为O
 		return;
 	}
 
-	//int ret = PartSort1(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
-	int ret = PartSort2(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
+	if ((right - left + 1) > 10)
+	{
+		int ret = PartSort1(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
+		//int ret = PartSort2(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
+		//int ret = PartSort3(arr, left, right);//先对数组排一趟，使得key值处在正确的位置
 
-	QuickSort(arr, left, ret - 1);//后对 key 值前面的数组排序
-	QuickSort(arr, ret + 1, right);//后对 key 值后面的数组排序
+		QuickSort(arr, left, ret - 1);//后对 key 值前面的数组排序
+		QuickSort(arr, ret + 1, right);//后对 key 值后面的数组排序
+	}
+	else
+	{
+		InsertSort(arr + left, right - left + 1);
+	}
 
 }
