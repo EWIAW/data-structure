@@ -22,7 +22,7 @@ void StackPush(Stack* ps, StackData x)//ÈëÕ»
 	if (ps->top == ps->capacity)
 	{
 		ps->capacity = ps->capacity * 2;
-		StackData* tmp = (StackData*)realloc(ps->arr, sizeof(ps->capacity));
+		StackData* tmp = (StackData*)realloc(ps->arr, sizeof(StackData) * ps->capacity);
 		if (tmp == NULL)
 		{
 			printf("À©ÈÝÊ§°Ü\n");
