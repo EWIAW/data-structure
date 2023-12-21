@@ -1,4 +1,5 @@
 ﻿#include"sort.h"
+#include"Stack.h"
 
 void Swap(int* num1, int* num2)//交换数组中的两个数
 {
@@ -316,6 +317,146 @@ void QuickSort(int* arr, int left, int right)//快速排序  时间复杂度为O
 	else
 	{
 		InsertSort(arr + left, right - left + 1);
+	}
+
+}
+
+void QuickSortNonR(int* arr, int left, int right)//快速排序  非递归实现
+{
+	assert(arr);
+
+	Stack st;
+	StackInit(&st);
+
+	StackPush(&st, right);
+	StackPush(&st, left);
+
+	while (!StackEmpty(&st))
+	{
+		int begin = StackTop(&st);
+		StackPop(&st);
+		int end = StackTop(&st);
+		StackPop(&st);
+		if (begin < end)
+		{
+			int div = PartSort3(arr, begin, end);
+
+			StackPush(&st, end);
+			StackPush(&st, div + 1);
+			StackPush(&st, div - 1);
+			StackPush(&st, begin);
+		}
+
+	}
+	StackDestort(&st);
+}
+
+void MergeArr(int* arr, int* tmp, int left, int right, int mid)//归并
+{
+	int begin1 = left;//左区间的起点
+	int end1 = mid;//左区间的终点
+	int begin2 = mid + 1;//右区间的起点
+	int end2 = right;//右区间的终点
+	int index = begin1;//tmp临时数组的起点
+
+	//对两段区间合并
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (arr[begin1] < arr[begin2])
+		{
+			tmp[index++] = arr[begin1++];
+		}
+		else
+		{
+			tmp[index++] = arr[begin2++];
+		}
+	}
+
+	//对剩余后半段放入tmp中
+	while (begin1 <= end1)
+	{
+		tmp[index++] = arr[begin1++];
+	}
+
+	//对剩余后半段放入tmp中
+	while (begin2 <= end2)
+	{
+		tmp[index++] = arr[begin2++];
+	}
+
+	//将数据从tmp拷贝回arr中
+	for (int i = left; i <= right; i++)
+	{
+		arr[i] = tmp[i];
+	}
+}
+
+void MergeSortPart(int* arr, int* tmp, int left, int right)
+{
+	assert(arr && tmp);
+
+	if (left >= right)
+	{
+		return;
+	}
+		
+	//分区间
+	int mid = (left + right) / 2;
+
+	MergeSortPart(arr, tmp, left, mid);
+	MergeSortPart(arr, tmp, mid+1, right);
+
+	//归并
+
+	MergeArr(arr, tmp, left, right, mid);
+}
+
+void MergeSort(int* arr, int sz)//归并排序  时间复杂度O（n*logN）  空间复杂度O（n）
+{
+	assert(arr);
+
+	int* tmp = (int*)malloc(sizeof(int) * sz);
+	if (tmp == NULL)
+	{
+		printf("malloc false\n");
+		exit(-1);
+	}
+	MergeSortPart(arr, tmp, 0, sz - 1);
+
+}
+
+void MergeSortNonR(int* arr, int sz)//归并排序非递归
+{
+	assert(arr);
+
+	int* tmp = (int*)malloc(sizeof(int) * sz);//创建临时数组来存放归并的结果
+	if (tmp == NULL)
+	{
+		printf("malloc false\n");
+		exit(-1);
+	}
+
+	int left = 0;//总区间的起点
+	int right = sz - 1;//总区间的终点
+
+	int gap = 1;//每次归并区间中的元素个数
+
+	while (gap < sz)
+	{
+		//归并区间 [i,i+gap-1]  [i+gap,i+2*gap-1]
+
+		for (int i = left; i <= right; i = i + 2 * gap)//每次i自增调到下两个区间
+		{
+			int begin = i;//左区间的起点
+			int end = i + 2 * gap - 1;//右区间的终点
+			int mid = i + gap - 1;//中间
+			if (end > right)//判断右区间是存在越界，如果是，则右区间给到末尾的位置
+			{
+				end = right;
+			}
+			MergeArr(arr, tmp, begin, end, mid);//归并两个区间
+		}
+		gap = gap * 2;
 	}
 
 }

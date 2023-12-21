@@ -61,16 +61,46 @@ void QuickSortTest()
 	Print(arr, sizeof(arr) / sizeof(int));
 }
 
+void QuickSortNonRTest()
+{
+	//int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	int arr[] = { 5,78,1,41,6,5,6 };
+	Print(arr, sizeof(arr) / sizeof(int));
+	QuickSortNonR(arr, 0, sizeof(arr) / sizeof(int) - 1);
+	Print(arr, sizeof(arr) / sizeof(int));
+}
+
+void MergeSortTest()
+{
+	//int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	int arr[] = { 5,78,1,41,6,5,6 };
+	Print(arr, sizeof(arr) / sizeof(int));
+	MergeSort(arr, sizeof(arr) / sizeof(int));
+	Print(arr, sizeof(arr) / sizeof(int));
+}
+
+void MergeSortNonRTest()
+{
+	int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	//int arr[] = { 5,78,1,41,6,5,6 ,9 };
+	Print(arr, sizeof(arr) / sizeof(int));
+	MergeSortNonR(arr, sizeof(arr) / sizeof(int));
+	Print(arr, sizeof(arr) / sizeof(int));
+}
+
 void TestOP()//≤‚ ‘ À˘”–≈≈–Ú ÀŸ∂»
 {
-	int N = 10000000;
+	int N = 50000;
 	int* a1 = (int*)malloc(sizeof(int) * N);
 	int* a2 = (int*)malloc(sizeof(int) * N);
 	int* a3 = (int*)malloc(sizeof(int) * N);
 	int* a4 = (int*)malloc(sizeof(int) * N);
 	int* a5 = (int*)malloc(sizeof(int) * N);
 	int* a6 = (int*)malloc(sizeof(int) * N);
-	
+	int* a7 = (int*)malloc(sizeof(int) * N);
+	int* a8 = (int*)malloc(sizeof(int) * N);
+	int* a9 = (int*)malloc(sizeof(int) * N);
+
 	for (int i = 0; i < N; i++)
 	{
 		a1[i] = rand();
@@ -79,38 +109,56 @@ void TestOP()//≤‚ ‘ À˘”–≈≈–Ú ÀŸ∂»
 		a4[i] = a1[i];
 		a5[i] = a1[i];
 		a6[i] = a1[i];
+		a7[i] = a1[i];
+		a8[i] = a1[i];
+		a9[i] = a1[i];
 	}
 
-	//int begin1 = clock();
-	//InsertSort(a1, N);//÷±Ω”≤Â»Î≈≈–Ú
-	//int end1 = clock();
+	int begin1 = clock();
+	InsertSort(a1, N);//÷±Ω”≤Â»Î≈≈–Ú
+	int end1 = clock();
 
 	int begin2 = clock();
 	ShellSort(a2, N);//œ£∂˚≈≈–Ú
 	int end2 = clock();
 
-	//int begin3 = clock();
-	//SelectSort(a3, N);//÷±Ω”—°‘Ò≈≈–Ú
-	//int end3 = clock();
+	int begin3 = clock();
+	SelectSort(a3, N);//÷±Ω”—°‘Ò≈≈–Ú
+	int end3 = clock();
 
 	int begin4 = clock();
 	HeapSort(a4, N);//∂—≈≈–Ú
 	int end4 = clock();
 
-	//int begin5 = clock();
-	//BubbleSort(a5, N);//√∞≈›≈≈–Ú
-	//int end5 = clock();
+	int begin5 = clock();
+	BubbleSort(a5, N);//√∞≈›≈≈–Ú
+	int end5 = clock();
 
 	int begin6 = clock();
 	QuickSort(a6, 0, N - 1);//øÏÀŸ≈≈–Ú
 	int end6 = clock();
 
-	//printf("InsertSort:%d\n", end1 - begin1);
+	int begin7 = clock();
+	QuickSortNonR(a7, 0, N - 1);//øÏÀŸ≈≈–Ú∑«µ›πÈ
+	int end7 = clock();
+
+	int begin8 = clock();
+	MergeSort(a8, N);//πÈ≤¢≈≈–Ú
+	int end8 = clock();
+
+	int begin9 = clock();
+	MergeSort(a9, N);//πÈ≤¢≈≈–Ú
+	int end9 = clock();
+
+	printf("InsertSort:%d\n", end1 - begin1);
 	printf("ShellSort:%d\n", end2 - begin2);
-	//printf("SelectSort:%d\n", end3 - begin3);
+	printf("SelectSort:%d\n", end3 - begin3);
 	printf("HeapSort:%d\n", end4 - begin4);
-	//printf("BubbleSort:%d\n", end5 - begin5);
+	printf("BubbleSort:%d\n", end5 - begin5);
 	printf("QuickSort:%d\n", end6 - begin6);
+	printf("QuickSortNonR:%d\n", end7 - begin7);
+	printf("MergeSort:%d\n", end8 - begin8);
+	printf("MergeSortNonR:%d\n", end9 - begin9);
 
 
 	free(a1);
@@ -119,6 +167,20 @@ void TestOP()//≤‚ ‘ À˘”–≈≈–Ú ÀŸ∂»
 	free(a4);
 	free(a5);
 	free(a6);
+	free(a7);
+	free(a8);
+	free(a9);
+}
+
+void ExternalSortTest()
+{
+	int arr[100];
+	for (int i = 0; i < 100; i++)
+	{
+		arr[i] = rand() % 100 + 1;
+	}
+
+
 }
 
 int main()
@@ -131,9 +193,13 @@ int main()
 	//HeapSortTest();
 	//BubbleSortTest();
 	//QuickSortTest();
+	//QuickSortNonRTest();
+	//MergeSortTest();
+	//MergeSortNonRTest();
 
+	//TestOP();
 
-	TestOP();
+	ExternalSortTest();
 
 	return 0;
 }

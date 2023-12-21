@@ -24,3 +24,7 @@ int PartSort2(int* arr, int begin, int end);//一趟快速排序  挖坑法  时
 int PartSort3(int* arr, int begin, int end);//一趟快速排序  前后指针法  时间复杂度为O（n）
 
 void QuickSort(int* arr, int left, int right);//快速排序  时间复杂度为 O（n*logN）
+void QuickSortNonR(int* arr, int left, int right);//快速排序  非递归实现
+
+void MergeSort(int* arr, int sz);//归并排序
+void MergeSortNonR(int* arr, int sz);//归并排序非递归
