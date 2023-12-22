@@ -4,6 +4,7 @@
 #include<assert.h>
 #include<time.h>
 #include<stdlib.h>
+#include<string.h>
 
 //插入排序
 void InsertSort(int* arr, int sz);//直接插入排序  时间复杂度为O（n²）
@@ -28,3 +29,4 @@ void QuickSortNonR(int* arr, int left, int right);//快速排序  非递归实�
 
 void MergeSort(int* arr, int sz);//归并排序
 void MergeSortNonR(int* arr, int sz);//归并排序非递归
+void MergeOutSort();//外部排序

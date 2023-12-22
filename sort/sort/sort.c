@@ -460,3 +460,181 @@ void MergeSortNonR(int* arr, int sz)//归并排序非递归
 	}
 
 }
+
+void WriteData()//写数据到一个文件中
+{
+	int arr[100] = { 0 };
+	//随机生成N个数
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	{
+		arr[i] = rand() % 100 + 1;
+	}
+	//for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	//{
+	//	arr[i] = 100 - i;
+	//}
+
+	FILE* all = fopen("Out//allnum.txt", "w");//以写的方式打开文件
+	if (all == NULL)
+	{
+		printf("打开文件失败\n");
+		exit(-1);
+	}
+
+	//将arr数组中的数 写到 allnum文件中
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+	{
+		fprintf(all, "%d\n", arr[i]);
+	}
+
+	fclose(all);//关闭文件
+}
+
+void MergeFile(char* one, char* two, char* MF)//将两个文件 合并 到一个文件中
+{
+	FILE* oneFile = fopen(one, "r");
+	if (oneFile == NULL)
+	{
+		printf("打开文件失败\n");
+		exit(-1);
+	}
+
+	FILE* twoFile = fopen(two, "r");
+	if (twoFile == NULL)
+	{
+		printf("打开文件失败\n");
+		exit(-1);
+	}
+
+	FILE* mf = fopen(MF, "w");
+	if (mf == NULL)
+	{
+		printf("打开文件失败\n");
+		exit(-1);
+	}
+
+	int num1 = 0;
+	int num2 = 0;
+
+	int ret1 = fscanf(oneFile, "%d\n", &num1);
+	int ret2 = fscanf(twoFile, "%d\n", &num2);
+
+	while (ret1 != -1 && ret2 != -1)
+	{
+		if (num1 < num2)
+		{
+			fprintf(mf, "%d\n", num1);
+			ret1 = fscanf(oneFile, "%d\n", &num1);
+		}
+		else
+		{
+			fprintf(mf, "%d\n", num2);
+			ret2 = fscanf(twoFile, "%d\n", &num2);
+		}
+	}
+
+	while (ret1 != EOF)
+	{
+		fprintf(mf, "%d\n", num1);
+		ret1 = fscanf(oneFile, "%d\n", &num1);
+
+	}
+
+	while (ret2 != EOF)
+	{
+		fprintf(mf, "%d\n", num2);
+		ret2 = fscanf(twoFile, "%d\n", &num2);
+	}
+
+	//关闭文件
+	fclose(oneFile);
+	fclose(twoFile);
+	fclose(mf);
+}
+
+void MergeOutSort()//外部排序
+{
+	WriteData();//写数据到一个文件中
+
+	FILE* all = fopen("Out//allnum.txt", "r");
+	if (all == NULL)
+	{
+		printf("打开文件失败\n");
+		exit(-1);
+	}
+
+	//分文件
+	int arr[10];//每个子文件的数据 数组
+	int sz = sizeof(arr) / sizeof(int);//每个子文件的数据个数
+	memset(arr, 0, sz * sizeof(int));
+	int num = 0;
+	int i = 0;
+	int FileNum = 1;
+
+	while (fscanf(all, "%d\n", &num) != EOF)
+	{
+		if (i < (sz - 1))//读9个数据到数组中
+		{
+			arr[i] = num;
+			i++;
+		}
+		else
+		{
+			arr[sz - 1] = num;//把最后读的一个放入数组中
+			QuickSort(arr, 0, sz - 1);
+
+			char FileName[20];
+			sprintf(FileName, "Out//sort%d.txt", FileNum++);
+
+			FILE* sonFile = fopen(FileName, "w");
+			if (sonFile == NULL)
+			{
+				printf("打开文件失败\n");
+				exit(-1);
+			}
+
+			for (int i = 0; i < sz; i++)
+			{
+				fprintf(sonFile, "%d\n", arr[i]);
+			}
+
+			fclose(sonFile);
+
+			i = 0;
+		}
+	}
+
+	FileNum--;
+
+	fclose(all);
+	//归并文件
+
+	char one[20];
+	char two[20];
+
+	char tmp1[20] = "tmp1.txt";
+	char tmp2[20] = "tmp2.txt";
+
+	char hebing[20];
+
+	sprintf(one, "Out//sort1.txt");
+	sprintf(two, "Out//sort2.txt");
+
+	strcpy(hebing, tmp1);
+	MergeFile(one, two, hebing);
+
+	int swap1 = 1;
+	int swap2 = 2;
+
+	for (int i = 3; i <= FileNum; i++)
+	{
+		sprintf(one, "tmp%d.txt",swap1);
+		sprintf(two, "Out//sort%d.txt",i);
+
+		Swap(&swap1, &swap2);
+
+		sprintf(tmp1, "tmp%d.txt", swap1);
+		MergeFile(one, two, tmp1);
+
+	}
+}

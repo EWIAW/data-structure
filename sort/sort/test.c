@@ -172,17 +172,6 @@ void TestOP()//测试 所有排序 速度
 	free(a9);
 }
 
-void ExternalSortTest()
-{
-	int arr[100];
-	for (int i = 0; i < 100; i++)
-	{
-		arr[i] = rand() % 100 + 1;
-	}
-
-
-}
-
 int main()
 {
 	srand((unsigned int)time(NULL));
@@ -199,7 +188,7 @@ int main()
 
 	//TestOP();
 
-	ExternalSortTest();
+	MergeOutSort();
 
 	return 0;
 }
