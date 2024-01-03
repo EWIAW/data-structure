@@ -162,7 +162,8 @@ void BubbleSort(int* arr, int sz)//冒泡排序 时间复杂度为O（n²）
 	}
 }
 
-int GetMidIndex(int* arr, int begin, int end)//用于快速排序  的  三数取中（即在begin、end和 (begin+end)/2之间取一个处在中间的值，这样保证在一趟排序中，key值不会是最大，也不会是最小
+//用于快速排序  的  三数取中（即在begin、end和 (begin+end)/2之间取一个处在中间的值，这样保证在一趟排序中，key值不会是最大，也不会是最小
+int GetMidIndex(int* arr, int begin, int end)
 {
 	assert(arr);
 
@@ -194,6 +195,7 @@ int PartSort1(int* arr, int begin, int end)//一趟快速排序  //左右指针�
 
 	int midIndex = GetMidIndex(arr, begin, end);//三数取中
 	Swap(&arr[begin], &arr[midIndex]);//将处在 中间的 数换到begin的位置
+
 	int key = begin;//需要比较的值
 
 	//一趟排序后，使得 arr[key] 处在正确的位置，它的左边都比它小，它的右边都比它大
@@ -422,6 +424,8 @@ void MergeSort(int* arr, int sz)//归并排序  时间复杂度O（n*logN）  �
 		exit(-1);
 	}
 	MergeSortPart(arr, tmp, 0, sz - 1);
+
+	free(tmp);
 
 }
 

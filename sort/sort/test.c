@@ -55,7 +55,8 @@ void BubbleSortTest()//≤‚ ‘  √∞≈›≈≈–Ú
 void QuickSortTest()
 {
 	//int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
-	int arr[] = { 5,78,1,41,6,5,6 };
+	//int arr[] = { 5,78,1,41,6,5,6 };
+	int arr[] = { 1,2,3,4,5,6,7,8,9 };
 	Print(arr, sizeof(arr) / sizeof(int));
 	QuickSort(arr, 0, sizeof(arr) / sizeof(int) - 1);
 	Print(arr, sizeof(arr) / sizeof(int));
@@ -81,8 +82,9 @@ void MergeSortTest()
 
 void MergeSortNonRTest()
 {
-	int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	//int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
 	//int arr[] = { 5,78,1,41,6,5,6 ,9 };
+	int arr[] = { 4,5,89,32,5,7,86,12,14 };
 	Print(arr, sizeof(arr) / sizeof(int));
 	MergeSortNonR(arr, sizeof(arr) / sizeof(int));
 	Print(arr, sizeof(arr) / sizeof(int));
@@ -184,11 +186,11 @@ int main()
 	//QuickSortTest();
 	//QuickSortNonRTest();
 	//MergeSortTest();
-	//MergeSortNonRTest();
+	MergeSortNonRTest();
 
 	//TestOP();
 
-	MergeOutSort();
+	//MergeOutSort();
 
 	return 0;
 }
