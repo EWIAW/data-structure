@@ -1,0 +1,8 @@
+﻿cl : 命令行  warning D9025: 正在重写“/sdl”(用“/GS-”)
+  test.c
+E:\github\data-structure\External-Sort\External-Sort\test.c(9,3): warning C4013: “exit”未定义；假设外部返回 int
+E:\github\data-structure\External-Sort\External-Sort\test.c(34,11): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\github\data-structure\External-Sort\External-Sort\test.c(39,11): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\github\data-structure\External-Sort\External-Sort\test.c(42,9): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\github\data-structure\External-Sort\External-Sort\test.c(46,9): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  External-Sort.vcxproj -> E:\github\data-structure\External-Sort\x64\Debug\External-Sort.exe
