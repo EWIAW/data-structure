@@ -67,9 +67,10 @@ void Combine(char* arr1, char* arr2, char* arr3)
 	fclose(pf3);
 }
 
-//随机生成数据
+//随机生成数据 
 void MakeData()
 {
+	//创建一个100大小的数组，用来存放1-100的数字
 	int arr[100];
 	for (int i = 0; i < 100; i++)
 	{
@@ -118,6 +119,7 @@ void MakeData()
 	}
 }
 
+//用于库函数qsort快速排序的比较函数
 int Compare(void* p1, void* p2)
 {
 	return *(int*)p1 - *(int*)p2;
@@ -130,7 +132,7 @@ void sort()
 	char name[20];
 	while (1)
 	{
-		sprintf(name, "data\\sort%d.txt", i);
+		sprintf(name, "data\\sort%d.txt", i);//输入文件名到name数组中
 		i++;
 
 		FILE* pf = fopen(name, "r");
@@ -140,14 +142,14 @@ void sort()
 			break;
 		}
 
-		int arr[10];
+		int arr[10];//创建一个数组来存放一个文本文件的所有数据
 		int tmp = 0;
 		for (int j = 0; j < 10; j++)
 		{
-			int ret = fscanf(pf, "%d\n", &tmp);
+			int ret = fscanf(pf, "%d\n", &tmp);//读一个数据到tmp中
 			if (ret != EOF)
 			{
-				arr[j] = tmp;
+				arr[j] = tmp;//将数据写入arr数组
 			}
 			else
 			{
@@ -155,7 +157,7 @@ void sort()
 			}
 		}
 
-		qsort(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), Compare);
+		qsort(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), Compare);//对数组中的数据进行排序
 
 		fclose(pf);
 
@@ -166,6 +168,7 @@ void sort()
 			exit(-1);
 		}
 
+		//将已经排序后的数据重新写入文本文件中
 		int k = 0;
 		for (int i = 0; i < 10; i++)
 		{
@@ -181,7 +184,7 @@ int main()
 
 	MakeData();//随机生成数据
 
-	sort();
+	sort();//对文本内容进行排序
 
 	char name1[20];
 	char name2[10];
