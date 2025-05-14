@@ -24,12 +24,22 @@ public:
 		return true;
 	}
 
+	//在查找 根节点 的过程中，可以进行路径压缩，已减少树的高度
 	size_t FindRoot(const int x1)
 	{
-		int root = x1;
+		int root = x1;//x1是指下标
 		while (_ufs_[root] >= 0)
 		{
 			root = _ufs_[root];
+		}
+
+		//进行一个路径压缩
+		int node = x1;
+		while (_ufs_[node] >= 0)
+		{
+			int tmp = _ufs_[node];
+			_ufs_[node] = root;
+			node = tmp;
 		}
 
 		return root;
