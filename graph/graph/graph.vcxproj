@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="graph_matrix.h" />
     <ClInclude Include="graph_table.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

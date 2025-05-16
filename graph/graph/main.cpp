@@ -2,6 +2,7 @@
 
 #include "graph_matrix.h"
 #include "graph_table.h"
+#include "test.h"
 
 void test1()
 {
@@ -29,9 +30,23 @@ void test2()
 	g.Print();
 }
 
+void test3()
+{
+	std::string a[] = { "张三", "李四", "王五", "赵六", "周七" };
+	Graph_Matrix<std::string, int> g1(a, sizeof(a) / sizeof(std::string));
+	g1.AddEdge("张三", "李四", 100);
+	g1.AddEdge("张三", "王五", 200);
+	g1.AddEdge("王五", "赵六", 30);
+	g1.AddEdge("王五", "周七", 30);
+	g1.BFS("张三");
+	//g1.DFS("张三");
+}
+
 int main()
 {
 	//test1();
-	test2();
+	//test2();
+	//test3();
+	test_matrix::test_total();
 	return 0;
 }

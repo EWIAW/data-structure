@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <queue>
 
 //邻接矩阵图
 //V是顶点的类型，W是边的权值， 顶点与顶点之间没有连通的用MAX_X默认权值代替，Direction == false代表是无向图
@@ -87,4 +88,94 @@ public:
 		}
 	}
 
+	void BFS(const V& vertex)
+	{
+		std::vector<bool> visited(_vertex.size(), false);//判断一个顶点是否已经被访问过
+		size_t visited_size = 0;//记录有多少个顶点 被访问过
+		_BFS(vertex, visited, visited_size);
+
+		while (visited_size < _vertex.size())
+		{
+			for (int i = 0; i < visited.size(); i++)
+			{
+				if (visited[i] == false)
+				{
+					_BFS(_vertex[i], visited, visited_size);
+				}
+			}
+		}
+		std::cout << std::endl;
+	}
+
+	void DFS(const V& vertex)
+	{
+		std::vector<bool> visited(_vertex.size(), false);
+		size_t visited_size = 0;//记录有多少个顶点 被访问过
+		_DFS(vertex, visited, visited_size);
+
+		while (visited_size < _vertex.size())
+		{
+			for (int i = 0; i < visited.size(); i++)
+			{
+				if (visited[i] == false)
+				{
+					_DFS(_vertex[i], visited, visited_size);
+				}
+			}
+		}
+		std::cout << std::endl;
+	}
+
+private:
+	//广度优先遍历子函数
+	void _BFS(const V& vertex, std::vector<bool>& visited, size_t& visited_size)
+	{
+		std::queue<V> q;
+		q.push(vertex);
+		size_t index = GetVertexIndex(vertex);
+		visited[index] = true;
+
+		while (q.empty() != true)
+		{
+			size_t n = q.size();
+
+			for (size_t i = 0; i < n; i++)
+			{
+				//访问一个结点
+				V tmp = q.front();
+				q.pop();
+				std::cout << tmp << " ";
+				visited_size++;
+
+				size_t index = GetVertexIndex(tmp);
+				for (int i = 0; i < _matrix[index].size(); i++)
+				{
+					if (_matrix[index][i] != MAX_W && visited[i] != true)
+					{
+						q.push(_vertex[i]);
+						visited[i] = true;
+					}
+				}
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	//深度优先遍历子函数
+	void _DFS(const V& vertex, std::vector<bool>& visited, size_t& visited_size)
+	{
+		std::cout << vertex << " ";
+		visited_size++;
+
+		size_t index = GetVertexIndex(vertex);
+		visited[index] = true;
+
+		for (int i = 0; i < _matrix[index].size(); i++)
+		{
+			if (_matrix[index][i] != MAX_W && visited[i] != true)
+			{
+				_DFS(_vertex[i], visited, visited_size);
+			}
+		}
+	}
 };
