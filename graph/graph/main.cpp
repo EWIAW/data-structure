@@ -47,6 +47,7 @@ int main()
 	//test1();
 	//test2();
 	//test3();
-	test_matrix::test_total();
+	//test_matrix::test_total();
+	test_table::test_total();
 	return 0;
 }

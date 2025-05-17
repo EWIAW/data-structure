@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <queue>
 
 template<class W>
 struct Graph_Node
@@ -33,7 +34,7 @@ public:
 	//Graph_Table graph(str,size());
 	Graph_Table(const V* vertex, const size_t n)
 		:_vertex(n),
-		_table(n,nullptr)
+		_table(n, nullptr)
 	{
 		for (size_t i = 0; i < n; i++)
 		{
@@ -99,6 +100,100 @@ public:
 				cur = cur->__next;
 			}
 			std::cout << "nullptr" << std::endl;
+		}
+	}
+
+	void BFS(const V& vertex)
+	{
+		std::vector<bool> visited(_vertex.size(), false);
+		size_t count = 0;//记录有多少个顶点 已经被访问了
+
+		_BFS(vertex, visited, count);
+
+		while (count < _vertex.size())
+		{
+			for (int i = 0; i < visited.size(); i++)
+			{
+				if (visited[i] == false)
+				{
+					_BFS(_vertex[i], visited, count);
+				}
+			}
+		}
+		std::cout << std::endl;
+	}
+
+	void DFS(const V& vertex)
+	{
+		std::vector<bool> visited(_vertex.size(), false);
+		size_t count = 0;
+
+		_DFS(vertex, visited, count);
+
+		while (count < _vertex.size())
+		{
+			for (int i = 0; i < visited.size(); i++)
+			{
+				if (visited[i] == false)
+				{
+					_DFS(_vertex[i], visited, count);
+				}
+			}
+		}
+		std::cout << std::endl;
+	}
+
+private:
+	void _BFS(const V& vertex, std::vector<bool>& visited, size_t& count)
+	{
+		std::queue<V> q;
+		q.push(vertex);
+		size_t index = GetVertexIndex(vertex);
+		visited[index] = true;
+
+		while (q.empty() != true)
+		{
+			size_t n = q.size();
+			for (size_t i = 0; i < n; i++)
+			{
+				V tmp = q.front();
+				q.pop();
+
+				std::cout << tmp << " ";
+				count++;
+
+				size_t index = GetVertexIndex(tmp);
+				Node* cur = _table[index];
+				while (cur != nullptr && visited[cur->__index] == false)
+				{
+					q.push(_vertex[cur->__index]);
+					visited[cur->__index] = true;
+					cur = cur->__next;
+				}
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	void _DFS(const V& vertex, std::vector<bool>& visited, size_t& count)
+	{
+		std::cout << vertex << " ";
+
+		size_t index = GetVertexIndex(vertex);
+		visited[index] = true;
+		count++;
+
+		Node* cur = _table[index];
+		while (cur != nullptr)
+		{
+			if (visited[cur->__index] == false)
+			{
+				_DFS(_vertex[cur->__index], visited, count);
+			}
+			else
+			{
+				cur = cur->__next;
+			}
 		}
 	}
 };
