@@ -48,6 +48,7 @@ int main()
 	//test2();
 	//test3();
 	//test_matrix::test_total();
-	test_table::test_total();
+	//test_table::test_total();
+	test_minTree::TestGraphMinTree();
 	return 0;
 }

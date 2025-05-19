@@ -205,3 +205,33 @@ namespace test_table
 		test9();
 	}
 }
+
+namespace test_minTree
+{
+	void TestGraphMinTree()
+	{
+		const char* str = "abcdefghi";
+		Graph_Matrix<char, int> g(str, strlen(str));
+		g.AddEdge('a', 'b', 4);
+		g.AddEdge('a', 'h', 8);
+		//g.AddEdge('a', 'h', 9);
+		g.AddEdge('b', 'c', 8);
+		g.AddEdge('b', 'h', 11);
+		g.AddEdge('c', 'i', 2);
+		g.AddEdge('c', 'f', 4);
+		g.AddEdge('c', 'd', 7);
+		g.AddEdge('d', 'f', 14);
+		g.AddEdge('d', 'e', 9);
+		g.AddEdge('e', 'f', 10);
+		g.AddEdge('f', 'g', 2);
+		g.AddEdge('g', 'h', 1);
+		g.AddEdge('g', 'i', 6);
+		g.AddEdge('h', 'i', 7);
+		Graph_Matrix<char, int> kminTree;
+		std::cout << "Kruskal:" << g.Kruskal(kminTree) << std::endl;
+		kminTree.print();
+		//Graph_Matrix<char, int> pminTree;
+		//std::cout << "Prim:" << g.Prim(pminTree, 'a') << std::endl;
+		//pminTree.print();
+	}
+}

@@ -4,17 +4,22 @@
 #include <unordered_map>
 #include <queue>
 
+#include "UnionFindSet.h"
+
 //邻接矩阵图
 //V是顶点的类型，W是边的权值， 顶点与顶点之间没有连通的用MAX_X默认权值代替，Direction == false代表是无向图
 template<class V, class W, W MAX_W = INT_MAX, bool Direction = false>
 class Graph_Matrix
 {
+	using Self = Graph_Matrix<V, W, MAX_W, Direction>;
 private:
 	std::vector<V> _vertex;//存储顶点
 	std::vector<std::vector<W>> _matrix;//存储 顶点和边的关系 的矩阵
 	std::unordered_map<V, size_t> _indexmap;//用于存储顶点 与 _vertex下标的关系，用于快速查找 顶点的下标
 
 public:
+	Graph_Matrix() = default;
+
 	Graph_Matrix(const V* vertex, const size_t n)
 		:_vertex(n),
 		_matrix(n)
@@ -126,6 +131,64 @@ public:
 		std::cout << std::endl;
 	}
 
+	//最小生成树
+	W Kruskal(Self& minTree)
+	{
+		//初始化minTree
+		minTree._vertex = _vertex;
+		minTree._indexmap = _indexmap;
+		minTree._matrix = _matrix;
+		
+		for (int i = 0; i < minTree._matrix.size(); i++)
+		{
+			minTree._matrix[i].resize(minTree._vertex.size(), MAX_W);
+		}
+
+		//先把所有边存储起来
+		std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
+		for (int i = 0; i < _matrix.size(); i++)
+		{
+			for (int j = i; j < _matrix[i].size(); j++)
+			{
+				if (_matrix[i][j] != MAX_W)
+				{
+					Edge edge(i, j, _matrix[i][j]);
+					pq.push(edge);
+				}
+			}
+		}
+
+		//开始选边
+		UnionFindSet ufs(_vertex.size());
+		int count = 0;//记录已经选了的 边数
+		W all_weight = W();//记录权值总和
+
+		while (pq.empty() != true)
+		{
+			Edge tmp = pq.top();
+			pq.pop();
+
+			//说明这两个顶点 连接起来 不会形成回路
+			if (ufs.FindRoot(tmp.__src_index) != ufs.FindRoot(tmp.__dest_index))
+			{
+				minTree._matrix[tmp.__src_index][tmp.__dest_index] = tmp.__weight;
+
+				ufs.Union(tmp.__src_index, tmp.__dest_index);
+				count++;
+				all_weight += tmp.__weight;
+			}
+		}
+
+		if (count == _vertex.size() - 1)
+		{
+			return all_weight;
+		}
+		else
+		{
+			return W();
+		}
+	}
+
 private:
 	//广度优先遍历子函数
 	void _BFS(const V& vertex, std::vector<bool>& visited, size_t& visited_size)
@@ -178,4 +241,31 @@ private:
 			}
 		}
 	}
+
+private:
+	//边 对象 辅助结构体
+	struct Edge
+	{
+		size_t __src_index;
+		size_t __dest_index;
+		W __weight;
+
+		Edge(const size_t src_index,const size_t dest_index,const W weight)
+			:__src_index(src_index),
+			__dest_index(dest_index),
+			__weight(weight)
+		{}
+
+		bool operator>(const Edge& tmp) const
+		{
+			if (__weight > tmp.__weight)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	};
 };

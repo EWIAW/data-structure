@@ -24,6 +24,7 @@ template<class V,class W,bool Direction = false>
 class Graph_Table
 {
 	using Node = Graph_Node<W>;
+	using Self = Graph_Table<V, W, Direction>;
 private:
 	std::vector<V> _vertex;//存储顶点
 	std::unordered_map<V, size_t> _indexmap;//用于存储顶点在_vertex中，顶点与下标的映射关系，用于快速查找顶点
@@ -141,6 +142,12 @@ public:
 			}
 		}
 		std::cout << std::endl;
+	}
+
+	//最小生成树
+	W Kruskal(Self& minTree)
+	{
+
 	}
 
 private:
