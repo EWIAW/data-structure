@@ -189,6 +189,69 @@ public:
 		}
 	}
 
+	W Prim(Self& minTree, const V& vertex)
+	{
+		//初始化minTree
+		minTree._vertex = _vertex;
+		minTree._indexmap = _indexmap;
+		minTree._matrix = _matrix;
+
+		for (int i = 0; i < minTree._matrix.size(); i++)
+		{
+			minTree._matrix[i].resize(minTree._vertex.size(), MAX_W);
+		}
+
+		std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
+		std::vector<bool> visited(_vertex.size(), false);
+		size_t index = GetVertexIndex(vertex);
+		visited[index] = true;
+
+		for (int i = 0; i < _matrix[index].size(); i++)
+		{
+			if (_matrix[index][i] != MAX_W)
+			{
+				pq.push(Edge(index, i, _matrix[index][i]));
+			}
+		}
+
+		W total = W();
+		int count = 0;
+		while (pq.empty() != true)
+		{
+			Edge edge = pq.top();
+			pq.pop();
+
+			if (visited[edge.__dest_index] == false)
+			{
+				minTree._matrix[edge.__src_index][edge.__dest_index] = edge.__weight;
+				visited[edge.__dest_index] = true;
+				total += edge.__weight;
+				count++;
+
+				for (int i = 0; i < _matrix[edge.__dest_index].size(); i++)
+				{
+					if (_matrix[edge.__dest_index][i] != MAX_W && visited[i] != true)
+					{
+						pq.push(Edge(edge.__dest_index, i, _matrix[edge.__dest_index][i]));
+					}
+				}
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		if (count == _vertex.size() - 1)
+		{
+			return total;
+		}
+		else
+		{
+			return W();
+		}
+	}
+
 private:
 	//广度优先遍历子函数
 	void _BFS(const V& vertex, std::vector<bool>& visited, size_t& visited_size)

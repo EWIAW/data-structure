@@ -227,11 +227,22 @@ namespace test_minTree
 		g.AddEdge('g', 'h', 1);
 		g.AddEdge('g', 'i', 6);
 		g.AddEdge('h', 'i', 7);
-		Graph_Matrix<char, int> kminTree;
-		std::cout << "Kruskal:" << g.Kruskal(kminTree) << std::endl;
-		kminTree.print();
-		//Graph_Matrix<char, int> pminTree;
-		//std::cout << "Prim:" << g.Prim(pminTree, 'a') << std::endl;
+		//Graph_Matrix<char, int> kminTree;
+		//std::cout << "Kruskal:" << g.Kruskal(kminTree) << std::endl;
+		//kminTree.print();
+		Graph_Matrix<char, int> pminTree;
+		std::cout << "Prim:" << g.Prim(pminTree, 'a') << std::endl;
 		//pminTree.print();
+
+		std::cout << "Prim:" << g.Prim(pminTree, 'a') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'b') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'c') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'd') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'e') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'f') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'g') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'h') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'i') << std::endl;
+		std::cout << "Prim:" << g.Prim(pminTree, 'j') << std::endl;
 	}
 }
